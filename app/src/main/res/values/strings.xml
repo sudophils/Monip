@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Monip</string>
+    <string name="title_activity_monip_shipping_manager_app">MonipShippingManagerApp</string>
+    <string name="title_activity_home_screen">HomeScreen</string>
+</resources>
