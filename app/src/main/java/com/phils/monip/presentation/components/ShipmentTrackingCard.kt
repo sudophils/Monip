@@ -38,8 +38,7 @@ import com.phils.monip.ui.theme.Orange
 
 @Composable
 fun ShipmentTrackingCard(shipmentInfo: TrackingInfo) {
-//    val displayMetrics = DisplayMetrics()
-//    windowManager.defaultDisplay.getMetrics(displayMetrics)
+
     Box(
         modifier = Modifier
             .height(290.dp)

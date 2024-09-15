@@ -21,27 +21,22 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.compose.rememberNavController
+import androidx.navigation.NavHostController
 import com.composables.icons.lucide.ArrowDown
 import com.composables.icons.lucide.Bell
 import com.composables.icons.lucide.Lucide
 import com.composables.icons.lucide.Send
 import com.composables.icons.lucide.Users
-import com.phils.monip.presentation.screens.SearchScreen
 import com.phils.monip.ui.navigation.NavigationItem
 import com.phils.monip.ui.theme.Purple40
 
-@Preview
 @Composable
-fun HomeTopHeader() {
-    val navController = rememberNavController()
-
+fun HomeTopHeader(navController: NavHostController) {
     Box(
         modifier = Modifier
             .background(color = Purple40)
-            .height(190.dp)
+            .height(180.dp)
             .padding(6.dp),
     ) {
         Column(
@@ -113,7 +108,7 @@ fun HomeTopHeader() {
                 }
             }
             Spacer(Modifier.height(24.dp))
-            SearchBox(onClick = {
+            SearchBox(onNavigateUp = {
                 navController.navigate(NavigationItem.SEARCH.route)
             })
             Spacer(Modifier.height(20.dp))

@@ -13,6 +13,8 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.composables.icons.lucide.Lucide
 import com.composables.icons.lucide.Truck
 import com.phils.monip.domain.model.TrackingInfo
@@ -22,7 +24,7 @@ import com.phils.monip.presentation.components.HomeTopHeader
 import com.phils.monip.presentation.components.ShipmentTrackingCard
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(navController: NavHostController) {
     val info = TrackingInfo(
         shipmentNumber = "NEJ20089934122231",
         icon = Lucide.Truck,
@@ -53,13 +55,14 @@ fun HomeScreen() {
         modifier = Modifier
             .fillMaxSize(),
     ) {
-        HomeTopHeader()
+
+        HomeTopHeader(navController)
         Text(
             "Track",
             modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp),
             style = TextStyle(fontSize = 24.sp)
         )
-        ShipmentTrackingCard(shipmentInfo = info, )
+        ShipmentTrackingCard(shipmentInfo = info)
         Spacer(modifier = Modifier.height(16.dp))
         Text(
             "Available Vehicles",
@@ -78,10 +81,11 @@ fun HomeScreen() {
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun PreviewHomeScreen() {
-    HomeScreen()
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun PreviewHomeScreen() {
+//        val navController = rememberNavController()
+//    HomeScreen(navController = navController)
+//}
 
 

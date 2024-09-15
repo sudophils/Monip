@@ -12,8 +12,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.NavController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.composables.icons.lucide.Calculator
@@ -21,10 +19,7 @@ import com.composables.icons.lucide.House
 import com.composables.icons.lucide.Lucide
 import com.composables.icons.lucide.Ship
 import com.composables.icons.lucide.User
-import com.phils.monip.presentation.screens.CalculateShipmentScreen
-import com.phils.monip.presentation.screens.HomeScreen
-import com.phils.monip.presentation.screens.ProfileScreen
-import com.phils.monip.presentation.screens.ShipmentScreen
+import com.phils.monip.ui.navigation.AppNavHost
 import java.util.Locale
 
 
@@ -34,12 +29,10 @@ fun ShippingManagementApp() {
     Scaffold(
         bottomBar = { BottomNavigationBar(navController) }
     ) { innerPadding ->
-        NavHost(navController, startDestination = "home", Modifier.padding(innerPadding)) {
-            composable("home") { HomeScreen() }
-            composable("calculate") { CalculateShipmentScreen() }
-            composable("shipment") { ShipmentScreen() }
-            composable("profile") { ProfileScreen() }
-        }
+        AppNavHost(
+            navController = navController,
+            modifier = Modifier.padding(innerPadding)
+        )
     }
 }
 
@@ -48,29 +41,31 @@ fun BottomNavigationBar(navController: NavController) {
     val currentRoute = currentRoute(navController)
     NavigationBar {
         val items = listOf(
-            NavigationItem("home", Lucide.House ),
-            NavigationItem("calculate", Lucide.Calculator),
-            NavigationItem("shipment", Lucide.Ship ),
-            NavigationItem("profile", Lucide.User)
+            BottomNavigationItem.HOME,
+            BottomNavigationItem.CALCULATE,
+            BottomNavigationItem.SHIPMENT,
+            BottomNavigationItem.PROFILE
         )
         items.forEach { screen ->
             NavigationBarItem(
                 icon = { Icon(imageVector = screen.icon, contentDescription = null) },
-
                 label = {
                     Text(screen.route.replaceFirstChar {
-                        if (it.isLowerCase()) it.titlecase(
-                            Locale.ROOT
-                        ) else it.toString()
+                        if (it.isLowerCase()) it.titlecase(Locale.ROOT) else it.toString()
                     })
                 },
                 selected = currentRoute == screen.route,
-                onClick = { navController.navigate(screen.route) }
+                onClick = {
+                    navController.navigate(screen.route) {
+                        popUpTo(navController.graph.startDestinationId) { saveState = true }
+                        launchSingleTop = true
+                        restoreState = true
+                    }
+                }
             )
         }
     }
 }
-
 
 @Composable
 fun currentRoute(navController: NavController): String? {
@@ -78,4 +73,9 @@ fun currentRoute(navController: NavController): String? {
     return navBackStackEntry?.destination?.route
 }
 
-data class NavigationItem(val route: String, val icon: ImageVector)
+sealed class BottomNavigationItem(val route: String, val icon: ImageVector) {
+    data object HOME : BottomNavigationItem("home", Lucide.House)
+    data object CALCULATE : BottomNavigationItem("calculate", Lucide.Calculator)
+    data object SHIPMENT : BottomNavigationItem("shipment", Lucide.Ship)
+    data object PROFILE : BottomNavigationItem("profile", Lucide.User)
+}

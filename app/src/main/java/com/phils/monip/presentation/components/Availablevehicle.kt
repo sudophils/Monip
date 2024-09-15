@@ -1,6 +1,5 @@
 package com.phils.monip.presentation.components
 
-import android.util.DisplayMetrics
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -10,7 +9,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -24,12 +22,9 @@ import com.phils.monip.domain.model.VehicleInfo
 
 @Composable
 fun AvailableVehicle(info: VehicleInfo) {
-
-//    val displayMetrics = DisplayMetrics()
-//    windowManager.defaultDisplay.getMetrics(displayMetrics)
     Box(
         modifier = Modifier
-            .height(290.dp)
+            .height(220.dp)
             .width(170.dp)
             .padding(10.dp)
             .border(

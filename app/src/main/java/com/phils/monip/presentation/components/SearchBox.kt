@@ -25,8 +25,7 @@ import com.composables.icons.lucide.Search
 import com.phils.monip.ui.theme.Orange
 
 @Composable
-
-fun SearchBox(onClick: () -> Unit) {
+fun SearchBox(onNavigateUp: () -> Unit) {
     Box(
         modifier = Modifier
             .clip(RoundedCornerShape(50.dp))
@@ -34,44 +33,47 @@ fun SearchBox(onClick: () -> Unit) {
             .height(55.dp)
             .background(Color.White.copy())
             .clickable {
-                onClick()
+                onNavigateUp()
             },
-
         contentAlignment = Alignment.Center
     ) {
         Row(
-            modifier = Modifier.padding(horizontal = 16.dp),
-            horizontalArrangement = Arrangement.SpaceBetween
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
         ) {
             Box(
                 modifier = Modifier
-                    .padding(8.dp)
-            ) {
+                    .padding(8.dp),
+
+                ) {
                 IconButton(
                     onClick = { },
                 ) {
                     Image(Lucide.Search, contentDescription = "Scan")
                 }
             }
-            Box(
-                modifier = Modifier
-                    .padding(8.dp)
-            ) {
-                Box(
 
-                    modifier = Modifier
-                        .width(45.dp)
-                        .height(45.dp)
-                        .background(color = Orange, CircleShape)
+            Box(
+
+                modifier = Modifier
+                    .width(40.dp)
+                    .height(40.dp)
+                    .background(color = Orange, CircleShape)
+            ) {
+                IconButton(
+                    onClick = { },
                 ) {
-                    IconButton(
-                        onClick = { },
-                    ) {
-                        Image(Lucide.Scan, contentDescription = "Scan")
-                    }
+                    Image(
+                        Lucide.Scan,
+                        contentDescription = "Scan",
+                        modifier = Modifier.width(19.dp)
+                    )
                 }
             }
-        }
 
+        }
     }
 }

@@ -5,8 +5,11 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.phils.monip.presentation.ShippingManagementApp
+import com.phils.monip.presentation.screens.CalculateShipmentScreen
+import com.phils.monip.presentation.screens.HomeScreen
+import com.phils.monip.presentation.screens.ProfileScreen
 import com.phils.monip.presentation.screens.SearchScreen
+import com.phils.monip.presentation.screens.ShipmentScreen
 
 @Composable
 fun AppNavHost(
@@ -20,11 +23,10 @@ fun AppNavHost(
         navController = navController,
         startDestination = startDestination
     ) {
-        composable(NavigationItem.SEARCH.route) {
-            SearchScreen(navController)
-        }
-        composable(NavigationItem.HOME.route) {
-            ShippingManagementApp()
-        }
+        composable(NavigationItem.HOME.route) { HomeScreen(navController) }
+        composable(NavigationItem.CALCULATE.route) { CalculateShipmentScreen() }
+        composable(NavigationItem.SHIPMENT.route) { ShipmentScreen() }
+        composable(NavigationItem.PROFILE.route) { ProfileScreen() }
+        composable(NavigationItem.SEARCH.route) { SearchScreen(navController) }
     }
 }

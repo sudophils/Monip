@@ -9,9 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
-import com.phils.monip.ui.navigation.AppNavHost
 import com.phils.monip.ui.theme.MonipTheme
 import com.phils.monip.ui.theme.Purple40
 
@@ -23,8 +21,7 @@ class MainActivity : ComponentActivity() {
             MonipTheme {
                 SetStatusBarColor(color = Purple40)
                 Surface {
-//                    ShippingManagementApp()
-                    AppNavHost(navController = rememberNavController())
+                    ShippingManagementApp()
                 }
 
             }
