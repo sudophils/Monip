@@ -1,6 +1,7 @@
 package com.phils.monip.presentation.components
 
 import android.util.DisplayMetrics
+import android.util.Log
 import android.view.WindowManager
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -98,7 +99,9 @@ fun ShipmentTrackingCard(shipmentInfo: TrackingInfo) {
                 color = Color.LightGray.copy(alpha = 0.3f),
                 modifier = Modifier.height(0.5.dp)
             )
-            AddStopButtonRow()
+            AddStopButtonRow(onAddStopClick = {
+                Log.i("Added", "onAddStopClick")
+            })
         }
 
     }
@@ -248,10 +251,13 @@ fun TrackingItemRow(info: TrackingInfo) {
 }
 
 @Composable
-fun AddStopButtonRow() {
+fun AddStopButtonRow(onAddStopClick: () -> Unit) {
 
     Row(
         modifier = Modifier
+            .clickable {
+                onAddStopClick()
+            }
             .fillMaxWidth()
             .padding(16.dp),
         horizontalArrangement = Arrangement.Center

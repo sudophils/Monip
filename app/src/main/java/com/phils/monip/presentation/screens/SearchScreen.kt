@@ -1,5 +1,9 @@
 package com.phils.monip.presentation.screens
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -27,6 +31,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -51,23 +56,33 @@ import com.phils.monip.ui.theme.Purple40
 
 @Composable
 fun SearchScreen(navController: NavHostController) {
+    var isVisible by remember { mutableStateOf(true) }
     var searchText by remember { mutableStateOf("") }
 
-    Scaffold(
-        topBar = {
-            SearchAppBar(
-                searchText = searchText,
-                onSearchTextChange = { searchText = it },
-                onNavigateUp = { navController.navigateUp() }
-            )
-        },
-        content = { innerPadding ->
-            SearchContent(
-                modifier = Modifier.padding(innerPadding),
-                searchText = searchText
-            )
-        }
-    )
+    LaunchedEffect(Unit) {
+        isVisible = true
+    }
+    AnimatedVisibility(
+        visible = isVisible,
+        enter = fadeIn(),
+        exit = fadeOut(animationSpec = tween(durationMillis = 300))
+    ) {
+        Scaffold(
+            topBar = {
+                SearchAppBar(
+                    searchText = searchText,
+                    onSearchTextChange = { searchText = it },
+                    onNavigateUp = { navController.navigateUp() }
+                )
+            },
+            content = { innerPadding ->
+                SearchContent(
+                    modifier = Modifier.padding(innerPadding),
+                    searchText = searchText
+                )
+            }
+        )
+    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -173,49 +188,49 @@ fun SearchContent(
             productName = "Macbook Pro M1",
             fromLocation = "Paris",
             toLocation = "UK",
-            shippingNumber = "#NEJ20089934122231"
+            shippingNumber = "#NEJ20189934122231"
         ),
         SearchItem(
             productName = "Macbook Pro Intel",
             fromLocation = "Japan",
             toLocation = "Nigeria",
-            shippingNumber = "#NEJ20089934122231"
+            shippingNumber = "#NEJ20389934122231"
         ),
         SearchItem(
             productName = "Macbook Pro M2",
             fromLocation = "Paris",
             toLocation = "Morocco",
-            shippingNumber = "#NEJ20089934122231"
+            shippingNumber = "#NEJ20085934122231"
         ),
         SearchItem(
             productName = "Macbook Pro M2",
             fromLocation = "London",
             toLocation = "Prague",
-            shippingNumber = "#NEJ20089934122231"
+            shippingNumber = "#NEJ24089934122231"
         ),
         SearchItem(
             productName = "Macbook Pro M2",
             fromLocation = "Paris",
             toLocation = "Morocco",
-            shippingNumber = "#NEJ20089934122231"
+            shippingNumber = "#NEJ21189934122231"
         ),
         SearchItem(
             productName = "Macbook Pro M2",
             fromLocation = "Paris",
             toLocation = "Morocco",
-            shippingNumber = "#NEJ20089934122231"
+            shippingNumber = "#NEJ20089934122281"
         ),
         SearchItem(
             productName = "Macbook Pro M2",
             fromLocation = "Paris",
             toLocation = "Morocco",
-            shippingNumber = "#NEJ20089934122231"
+            shippingNumber = "#NEJ20029934122231"
         ),
         SearchItem(
             productName = "Macbook Pro M2",
             fromLocation = "Paris",
             toLocation = "Morocco",
-            shippingNumber = "#NEJ20089934122231"
+            shippingNumber = "#NEJ20080934122231"
         ),
     )
 
@@ -251,14 +266,15 @@ fun SearchContent(
 
             LazyColumn(
                 modifier = modifier
+
                     .fillMaxSize()
 
                     .padding(8.dp),
                 verticalArrangement = Arrangement.Top
 
             ) {
-                items(filteredItems) { item ->
-                    SearchItemTile(searchItem = item)
+                items(filteredItems, key = { it.shippingNumber }) { item ->
+                    SearchItemTile(searchItem = item, Modifier.animateItem())
                 }
             }
 

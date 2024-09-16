@@ -10,11 +10,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import com.composables.icons.lucide.Lucide
 import com.composables.icons.lucide.Truck
 import com.phils.monip.domain.model.TrackingInfo
@@ -25,6 +23,7 @@ import com.phils.monip.presentation.components.ShipmentTrackingCard
 
 @Composable
 fun HomeScreen(navController: NavHostController) {
+
     val info = TrackingInfo(
         shipmentNumber = "NEJ20089934122231",
         icon = Lucide.Truck,
@@ -81,11 +80,5 @@ fun HomeScreen(navController: NavHostController) {
     }
 }
 
-//@Preview(showBackground = true)
-//@Composable
-//fun PreviewHomeScreen() {
-//        val navController = rememberNavController()
-//    HomeScreen(navController = navController)
-//}
 
 

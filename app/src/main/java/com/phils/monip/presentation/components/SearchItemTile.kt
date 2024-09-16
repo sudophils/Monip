@@ -28,10 +28,10 @@ import com.phils.monip.domain.model.SearchItem
 import com.phils.monip.ui.theme.Purple40
 
 @Composable
-fun SearchItemTile(searchItem: SearchItem) {
+fun SearchItemTile(searchItem: SearchItem, modifier: Modifier) {
     Column {
         Row(
-            modifier = Modifier
+            modifier
                 .fillMaxWidth()
                 .padding(8.dp),
             horizontalArrangement = Arrangement.Start,
@@ -40,6 +40,7 @@ fun SearchItemTile(searchItem: SearchItem) {
             Box(
                 modifier = Modifier
                     .width(40.dp)
+                    .weight(1f, fill = false)
                     .height(40.dp)
                     .background(Purple40, CircleShape)
             ) {
